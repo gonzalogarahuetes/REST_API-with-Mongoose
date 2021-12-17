@@ -9,16 +9,20 @@ const PublisherSchema = new mongoose.Schema({
   creationDate: {
     type: Date,
   },
-  authors: {
-    type: [mongoose.Types.ObjectId],
-    ref: "authors",
-  },
-  books: {
-    type: [mongoose.Types.ObjectId],
-    ref: "books",
-  },
+  authors: [
+    {
+      type: mongoose.SchemaTypes.ObjectId,
+      ref: "author",
+    },
+  ],
+  books: [
+    {
+      type: mongoose.SchemaTypes.ObjectId,
+      ref: "book",
+    },
+  ],
 });
 
-const PublisherModel = new mongoose.model("publishers", PublisherSchema);
+const PublisherModel = new mongoose.model("publisher", PublisherSchema);
 
 module.exports = PublisherModel;

@@ -9,15 +9,15 @@ const BookSchema = new mongoose.Schema({
   author: {
     type: mongoose.SchemaTypes.ObjectId,
     required: true,
-    ref: "user",
+    ref: "author",
   },
-  genre: {
+  category: {
     type: String,
     required: true,
     trim: true,
   },
-  year: {
-    type: Number,
+  releaseYear: {
+    type: [Date],
     required: true,
   },
   pages: {

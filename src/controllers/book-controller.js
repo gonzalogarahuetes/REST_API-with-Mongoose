@@ -119,7 +119,7 @@ async function getBooks(req, res, next) {
  */
 async function getSingleBook(req, res, next) {
   try {
-    const id = req.params.bookId;
+    const { bookId } = req.params;
 
     console.log(req.params);
 
@@ -182,7 +182,7 @@ async function getSingleBook(req, res, next) {
  */
 async function updateBook(req, res, next) {
   try {
-    const id = req.params.bookId;
+    const { bookId } = req.params;
 
     const newData = req.body;
 
@@ -230,7 +230,7 @@ async function updateBook(req, res, next) {
  */
 async function deleteBook(req, res, next) {
   try {
-    const bookId = req.params.bookId;
+    const { bookId } = req.params;
     const dbRes = await db.Book.findOneAndDelete({
       _id: bookId,
     });

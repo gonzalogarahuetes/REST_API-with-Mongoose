@@ -18,9 +18,9 @@ async function getAllPublishers(req, res, next) {
 
 async function getSinglePublisher(req, res, next) {
   try {
-    const publisherId = req.params.publisherId;
+    const { publisherId } = req.params;
 
-    const dbRes = await db.Publisher.find(
+    const dbRes = await db.Publisher.findOne(
       {
         _id: publisherId,
       },
@@ -31,22 +31,8 @@ async function getSinglePublisher(req, res, next) {
         authors: 1,
       },
     )
-      .populate({
-        path: "book",
-        select: {
-          title: 1,
-          pages: 1,
-        },
-      })
-      .populate({
-        path: "author",
-        select: {
-          name: 1,
-          lastName: 1,
-          country: 1,
-        },
-      })
-      .lean()
+      .populate("books", ["title", "releaseYear"])
+      .populate("authors", ["name", "lastName", "country"])
       .exec();
 
     res.status(200).send({
@@ -76,7 +62,7 @@ async function createPublisher(req, res, next) {
 
 async function updatePublisher(req, res, next) {
   try {
-    const publisherId = req.params.publisherId;
+    const { publisherId } = req.params;
 
     const newData = req.body;
 
@@ -93,7 +79,7 @@ async function updatePublisher(req, res, next) {
 
 async function deletePublisher(req, res, next) {
   try {
-    const publisherId = req.params.publisherId;
+    const { publisherId } = req.params;
 
     const dbRes = await db.Publisher.findOneAndRemove({
       _id: publisherId,
