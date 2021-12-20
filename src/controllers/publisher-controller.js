@@ -66,7 +66,10 @@ async function updatePublisher(req, res, next) {
 
     const newData = req.body;
 
-    const dbRes = await db.Publisher.findOneAndUpdate(publisherId, newData);
+    const dbRes = await db.Publisher.findOneAndUpdate(publisherId, newData, {
+      new: true,
+      runValidator: true,
+    });
 
     res.status(202).send({
       success: true,

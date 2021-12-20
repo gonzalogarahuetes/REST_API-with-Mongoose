@@ -121,11 +121,9 @@ async function getSingleBook(req, res, next) {
   try {
     const { bookId } = req.params;
 
-    console.log(req.params);
-
     const dbRes = await db.Book.find(
       {
-        _id: id,
+        _id: bookId,
       },
       {
         title: 1,
@@ -186,7 +184,7 @@ async function updateBook(req, res, next) {
 
     const newData = req.body;
 
-    console.log(id);
+    console.log(bookId);
     console.log(newData);
 
     const dbRes = await db.Book.findOneAndUpdate(
