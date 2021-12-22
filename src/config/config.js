@@ -88,6 +88,9 @@ const CONFIG = {
     app: {
       PORT: process.env.PORT || 4000,
     },
+    client: {
+      URL: process.env.FB_CLIENT_URL || "http://localhost:3000",
+    },
     logger: {
       warn: logger.warn,
       info: logger.info,

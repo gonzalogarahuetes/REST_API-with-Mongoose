@@ -13,33 +13,33 @@ describe("books crud controllers", () => {
   beforeEach(async () => await seedBooks());
 
   test("1.1.1 create the book and return it", async () => {
-    const user = await db.User.findOne({ _id: { $exists: true } })
+    const author = await db.Author.findOne({ _id: { $exists: true } })
       .select("_id")
       .lean()
       .exec();
 
     const res = await request.post("/books").send({
       title: "test book title",
-      author: user._id,
-      genre: "test",
-      year: 1000,
+      author: author._id,
+      category: "test",
+      releaseYear: "1999-12-10",
       pages: 1000,
     });
 
-    expect(res.body.data).toEqual(expect.any(String));
+    expect(res.body.data).toEqual(expect.any(Object));
   });
 
   test("1.1.2 return a status code of `200`", async () => {
-    const user = await db.User.findOne({ _id: { $exists: true } })
+    const author = await db.Author.findOne({ _id: { $exists: true } })
       .select("_id")
       .lean()
       .exec();
 
     const res = await request.post("/books").send({
       title: "test book title",
-      author: user._id,
-      genre: "test",
-      year: 1000,
+      author: author._id,
+      category: "test",
+      releaseYear: "1999-12-10",
       pages: 1000,
     });
 
@@ -62,7 +62,7 @@ describe("books crud controllers", () => {
     expect(res.status).toBe(200);
   });
 
-  test("1.3.1 get the book and author info", async () => {
+  test("1.3.1 get the book and author's info", async () => {
     const book = await db.Book.findOne({}).select("_id").limit(1).lean().exec();
     const res = await request.get(`/books/${book._id}`);
     expect(res.body.data).toEqual({

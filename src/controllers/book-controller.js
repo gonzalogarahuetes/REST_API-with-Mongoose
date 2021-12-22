@@ -75,7 +75,7 @@ async function getBooks(req, res, next) {
 
     console.log(dbRes);
 
-    res.status(201).send({
+    res.status(200).send({
       success: true,
       data: dbRes,
     });

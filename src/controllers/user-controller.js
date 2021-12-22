@@ -113,6 +113,7 @@ async function deleteUser(req, res, next) {
 async function signUp(req, res, next) {
   try {
     const { uid, email } = req.user;
+    const { firstName, firebaseId } = req.body;
 
     const user = await db.User.findOne({ email: email });
 
@@ -120,6 +121,8 @@ async function signUp(req, res, next) {
 
     const newUser = await db.User.create({
       _id: uid,
+      firebaseId: firebaseId,
+      firstName: firstName,
       email: email,
     });
     res.status(201);
